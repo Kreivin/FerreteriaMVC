@@ -3,18 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/Modelo/DetalleCompra.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/CompraDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/VentaDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/CategoriaDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/DetalleCompraDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/EmpleadoDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/Util/ConexionDB.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/Modelo/Compra.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/ClienteDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/ProductoDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/UsuarioDAO.java</file>
-            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/frecuenciaAVC/src/DAO/DetalleVentaDAO.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/DAO/CompraDAO.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/CategoriaControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/DetalleVentaControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/EmpleadoControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/ProductoControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/DetalleCompraControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/UsuarioControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/ClienteControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/Controlador/VentaControlador.java</file>
+            <file>file:/C:/Users/kreiv/Documents/NetBeansProjects/FerreteriaMVC/frecuenciaAVC/src/DAO/VentaDAO.java</file>
         </group>
     </open-files>
 </project-private>
