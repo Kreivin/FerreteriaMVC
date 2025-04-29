@@ -6,6 +6,7 @@ package DAO;
 import Modelo.Categoria;
 import Util.ConexionDB;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -101,6 +102,4 @@ public void eliminarCategoria(int idCategoria) throws SQLException {
         stmt.executeUpdate();
     }
 }
-
-
 }
