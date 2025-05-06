@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  * @author kreiv
  */
 public class VistaCategorias extends javax.swing.JPanel {
-    
+    private final CategoriaControlador categoriaControlador;
     /**
      * Creates new form VistaCategorias
      */
@@ -22,12 +22,10 @@ public class VistaCategorias extends javax.swing.JPanel {
        initComponents();
        this.categoriaControlador = new CategoriaControlador();
        cargarDatosTabla();
-        
     }
     
     private void cargarDatosTabla(){
-        CategoriaControlador controlador =new CategoriaControlador();
-        List<Categoria> categorias = controlador.obtenerTodasCategorias();
+        List<Categoria> categorias =categoriaControlador.obtenerTodasCategorias();
         
         if (categorias != null){
             
@@ -163,7 +161,7 @@ public class VistaCategorias extends javax.swing.JPanel {
         String descripcion = TextDescripcionCategoria.getText();
         
         if (!nombre.isEmpty()&& !descripcion.isEmpty()){
-           
+           categoriaControlador.crearCategoria(nombre, descripcion);
             cargarDatosTabla();
             TextNombreCategoria.setText("");
             TextDescripcionCategoria.setText("");
