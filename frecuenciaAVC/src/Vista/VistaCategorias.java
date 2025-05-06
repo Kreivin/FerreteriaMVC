@@ -3,18 +3,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista;
+import Controlador.CategoriaControlador;
+import Modelo.Categoria;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author kreiv
  */
 public class VistaCategorias extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form VistaCategorias
      */
     public VistaCategorias() {
-        initComponents();
+       initComponents();
+       this.categoriaControlador = new CategoriaControlador();
+       cargarDatosTabla();
+        
+    }
+    
+    private void cargarDatosTabla(){
+        CategoriaControlador controlador =new CategoriaControlador();
+        List<Categoria> categorias = controlador.obtenerTodasCategorias();
+        
+        if (categorias != null){
+            
+            DefaultTableModel model = (DefaultTableModel) TablaCategorias.getModel();
+            
+            model.setRowCount(0);
+            
+            for (Categoria cat : categorias){
+                Object[] row = {
+                   cat.getIdCategoria(),
+                    cat.getNombreCategoria(),
+                    cat.getDescripcionCategoria()
+                };
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -27,16 +56,16 @@ public class VistaCategorias extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TextNombreCategoria = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        TextDescripcionCategoria = new javax.swing.JTextField();
+        jButtonGuardar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        jTextBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaCategorias = new javax.swing.JTable();
 
         setLayout(null);
 
@@ -44,84 +73,117 @@ public class VistaCategorias extends javax.swing.JPanel {
         add(jLabel1);
         jLabel1.setBounds(15, 29, 110, 16);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        TextNombreCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                TextNombreCategoriaActionPerformed(evt);
             }
         });
-        add(jTextField1);
-        jTextField1.setBounds(15, 51, 160, 22);
+        add(TextNombreCategoria);
+        TextNombreCategoria.setBounds(15, 51, 160, 22);
 
         jLabel2.setText("Descripcion Categoria");
         add(jLabel2);
         jLabel2.setBounds(199, 29, 116, 16);
-        add(jTextField2);
-        jTextField2.setBounds(199, 51, 160, 22);
+        add(TextDescripcionCategoria);
+        TextDescripcionCategoria.setBounds(199, 51, 160, 22);
 
-        jButton1.setText("Guardar");
-        add(jButton1);
-        jButton1.setBounds(390, 50, 120, 23);
-
-        jButton2.setText("Buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                accionBotonGuardar(evt);
             }
         });
-        add(jButton2);
-        jButton2.setBounds(390, 150, 120, 23);
+        add(jButtonGuardar);
+        jButtonGuardar.setBounds(390, 50, 120, 23);
 
-        jButton3.setText("Eliminar");
-        add(jButton3);
-        jButton3.setBounds(660, 150, 116, 23);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        add(btnBuscar);
+        btnBuscar.setBounds(390, 150, 120, 23);
 
-        jButton4.setText("Editar");
-        add(jButton4);
-        jButton4.setBounds(530, 150, 116, 23);
+        btnEliminar.setText("Eliminar");
+        add(btnEliminar);
+        btnEliminar.setBounds(660, 150, 116, 23);
 
-        jTextField3.setText("jTextField3");
-        add(jTextField3);
-        jTextField3.setBounds(16, 148, 340, 22);
+        btnEditar.setText("Editar");
+        add(btnEditar);
+        btnEditar.setBounds(530, 150, 116, 23);
+        add(jTextBuscar);
+        jTextBuscar.setBounds(16, 148, 340, 22);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Categoria", "Nombre", "Descripcion"
             }
-        ));
-        jTable1.setPreferredSize(new java.awt.Dimension(300, 230));
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getAccessibleContext().setAccessibleName("");
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TablaCategorias.setPreferredSize(new java.awt.Dimension(300, 230));
+        jScrollPane1.setViewportView(TablaCategorias);
+        TablaCategorias.getAccessibleContext().setAccessibleName("");
 
         add(jScrollPane1);
         jScrollPane1.setBounds(20, 190, 760, 180);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void TextNombreCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextNombreCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_TextNombreCategoriaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void accionBotonGuardar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonGuardar
+        // TODO add your handling code here:
+        String nombre = TextNombreCategoria.getText();
+        String descripcion = TextDescripcionCategoria.getText();
+        
+        if (!nombre.isEmpty()&& !descripcion.isEmpty()){
+           
+            cargarDatosTabla();
+            TextNombreCategoria.setText("");
+            TextDescripcionCategoria.setText("");
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionBotonGuardar
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JTable TablaCategorias;
+    private javax.swing.JTextField TextDescripcionCategoria;
+    private javax.swing.JTextField TextNombreCategoria;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextBuscar;
     // End of variables declaration//GEN-END:variables
 }
