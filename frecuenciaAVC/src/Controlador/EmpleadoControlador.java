@@ -79,29 +79,4 @@ public class EmpleadoControlador {
             JOptionPane.showMessageDialog(null, "Error al eliminar el empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // Método main para pruebas
-    public static void main(String[] args) {
-        EmpleadoControlador controlador = new EmpleadoControlador();
-
-        // Crear un empleado
-        controlador.crearEmpleado("María", "Luisa", "Rodríguez", "López", "87654321", "Vendedor", new Date());
-        
-        // Leer todos los empleados
-        List<Empleado> empleados = controlador.obtenerTodosEmpleados();
-        if (empleados != null) {
-            System.out.println("Lista de empleados:");
-            for (Empleado e : empleados) {
-                System.out.println("ID: " + e.getIdEmpleado() + 
-                                   ", Nombre: " + e.getPrimerNombre() + " " + e.getPrimerApellido() + 
-                                   ", Cargo: " + e.getCargo());
-            }
-        }
-
-        // Actualizar un empleado (suponiendo que ID 1 existe)
-        controlador.actualizarEmpleado(1, "María", "Elena", "Rodríguez", "Gómez", "12345678", "Gerente", new Date());
-
-        // Eliminar un empleado
-        controlador.eliminarEmpleado(1);
-    }
 }

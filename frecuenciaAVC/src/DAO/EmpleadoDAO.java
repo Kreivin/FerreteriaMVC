@@ -91,40 +91,4 @@ public class EmpleadoDAO {
             stmt.executeUpdate();
         }
     }
-
-public static void main(String[] args) {
-    try {
-        EmpleadoDAO dao = new EmpleadoDAO();
-     // Actualizar un empleado
-        Empleado empleado = new Empleado();
-        empleado.setIdEmpleado(1); // ID existente
-        empleado.setPrimerNombre("Ana");
-        empleado.setSegundoNombre("María");
-        empleado.setPrimerApellido("López");
-        empleado.setSegundoApellido("Martínez");
-        empleado.setCelular("987654321");
-        empleado.setCargo("Gerente");
-        empleado.setFechaContratacion(new java.util.Date());
-        dao.actualizarEmpleado(empleado);
-        System.out.println("Empleado actualizado.");
-        
-        // Eliminar un empleado
-        dao.eliminarEmpleado(2); // ID a eliminar
-        System.out.println("Empleado eliminado.");
-        
-        // Leer y mostrar todos los empleados para verificar
-        List<Empleado> empleados = dao.leerTodosEmpleados();
-        System.out.println("Lista de empleados:");
-        for (Empleado emp : empleados) {
-            System.out.println("ID: " + emp.getIdEmpleado() + 
-                               ", Nombre: " + emp.getPrimerNombre() + " " + emp.getSegundoNombre() + 
-                               " " + emp.getPrimerApellido() + " " + emp.getSegundoApellido() + 
-                               ", Celular: " + emp.getCelular() + 
-                               ", Cargo: " + emp.getCargo() + 
-                               ", Fecha Contratación: " + emp.getFechaContratacion());
-        }
-    } catch (SQLException e) {
-        System.err.println("Error: " + e.getMessage());
-    }
-}
 }
