@@ -4,6 +4,7 @@
  */
 package Vista;
 
+
 /**
  *
  * @author kreiv
@@ -18,6 +19,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         opciones.addTab("Categorias", new VistaCategorias());
         opciones.addTab("Productos", new VistaProductos());
         opciones.addTab("Empleados", new VistaEmpleados());
+        opciones.addTab("Clientes", new VistaClientes());
     }
 
     /**
@@ -33,7 +35,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ferreteria");
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,7 +42,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                .addComponent(opciones, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
