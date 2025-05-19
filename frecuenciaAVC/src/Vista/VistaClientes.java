@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaClientes extends javax.swing.JPanel {
     private final ClienteControlador clienteControlador;
+    private Integer idClienteSeleccionado = null;
 
     /**
      * Creates new form VistaClientes
@@ -33,6 +34,7 @@ public class VistaClientes extends javax.swing.JPanel {
             
             for (Cliente cli : clientes){
                 Object[] row = {
+                    cli.getIdCliente(),
                     cli.getPrimerNombre(),
                     cli.getSegundoNombre(),
                     cli.getPrimerApellido(),
@@ -44,6 +46,19 @@ public class VistaClientes extends javax.swing.JPanel {
                 model.addRow(row);
             }
         }
+    }
+    
+    private void limpiar() {
+TextPrimerNombre.setText("");
+TextSegundoNombre.setText("");
+TextPrimerApellido.setText("");
+TextSegundoApellido.setText("");
+TextCelular.setText("");
+TextDireccion.setText("");
+TextCedula.setText("");
+idClienteSeleccionado = null;
+btnEliminar.setEnabled(true);
+btnGuardar.setEnabled(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +106,12 @@ public class VistaClientes extends javax.swing.JPanel {
 
         jLabel7.setText("Cedula");
 
+        TextBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textBuscarKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("Buscar");
 
         btnLimpiar.setText("Limpiar");
@@ -103,25 +124,35 @@ public class VistaClientes extends javax.swing.JPanel {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonEliminar(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonActualizar(evt);
+            }
+        });
 
         TablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido", "Celular", "Direccion", "Cedula"
+                "id Cliente", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido", "Celular", "Direccion", "Cedula"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -130,6 +161,11 @@ public class VistaClientes extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        TablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaClientesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(TablaClientes);
@@ -141,9 +177,6 @@ public class VistaClientes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -191,8 +224,9 @@ public class VistaClientes extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEliminar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnActualizar)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(btnActualizar))
+                            .addComponent(jScrollPane1))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +258,9 @@ public class VistaClientes extends javax.swing.JPanel {
                     .addComponent(btnGuardar)
                     .addComponent(btnEliminar)
                     .addComponent(btnActualizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -254,6 +288,106 @@ public class VistaClientes extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_accionBotonGuardar
+
+    private void accionBotonEliminar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonEliminar
+        // TODO add your handling code here:
+        int filaSeleccionada = TablaClientes.getSelectedRow();
+        if(filaSeleccionada != -1){
+            int idCliente =(int) TablaClientes.getValueAt(filaSeleccionada, 0);
+           clienteControlador.eliminarCliente(idCliente);
+           cargarDatosTabla();
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "selecciona una fila para eliminar.","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionBotonEliminar
+
+    private void accionBotonActualizar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonActualizar
+        // TODO add your handling code here:
+        String PrimerNombre = TextPrimerNombre.getText();
+        String SegundoNombre = TextSegundoNombre.getText();
+        String PrimerApellido = TextPrimerApellido.getText();
+        String SegundoApellido = TextSegundoApellido.getText();
+        String Celular = TextCelular.getText();
+        String Direccion = TextDireccion.getText();
+        String Cedula = TextCedula.getText();
+        
+        if(idClienteSeleccionado != null && !PrimerNombre.isEmpty()&& !PrimerApellido.isEmpty()&& !Celular.isEmpty()){
+            try{
+                clienteControlador.actualizarCliente(idClienteSeleccionado, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Celular, Direccion, Cedula);
+                cargarDatosTabla();
+                limpiar();
+            }catch(Exception e){
+                javax.swing.JOptionPane.showMessageDialog(this, "Error:"+ e.getMessage(),"Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "llene los campos obligatorios :|","Error",javax.swing.JOptionPane.ERROR_MESSAGE); 
+        }
+    }//GEN-LAST:event_accionBotonActualizar
+
+    private void textBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBuscarKeyTyped
+        // TODO add your handling code here:
+        String TextBusqueda = TextBuscar.getText().trim().toLowerCase();
+        List<Cliente> clientes =clienteControlador.obtenerTodosClientes();
+        
+        DefaultTableModel modelo = (DefaultTableModel) TablaClientes.getModel();
+        modelo.setRowCount(0);
+        
+        if(clientes !=null){
+            for (Cliente cli: clientes){
+                if(TextBusqueda.isEmpty()||
+                        cli.getPrimerNombre().toLowerCase().contains(TextBusqueda)||
+                        (cli.getSegundoNombre()!=null && cli.getSegundoNombre().toLowerCase().contains(TextBusqueda))||
+                        cli.getPrimerApellido().toLowerCase().contains(TextBusqueda)||
+                        (cli.getSegundoApellido()!=null && cli.getSegundoApellido().toLowerCase().contains(TextBusqueda))||
+                        cli.getCelular().toLowerCase().contains(TextBusqueda)||
+                        cli.getDireccion().toLowerCase().contains(TextBusqueda)||
+                        cli.getCedula().toLowerCase().contains(TextBusqueda)){
+                    Object[] fila ={
+                        cli.getIdCliente(),
+                        cli.getPrimerNombre(),
+                        cli.getSegundoNombre(),
+                        cli.getPrimerApellido(),
+                        cli.getSegundoApellido(),
+                        cli.getCelular(),
+                        cli.getDireccion(),
+                        cli.getCedula()
+                    };
+                    modelo.addRow(fila);
+                }
+            }
+        }
+    }//GEN-LAST:event_textBuscarKeyTyped
+
+    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
+        // TODO add your handling code here:
+        
+        if(evt.getClickCount()== 2){
+            int filaSeleccionada = TablaClientes.getSelectedRow();
+            
+            if (filaSeleccionada != -1){
+                
+                idClienteSeleccionado = (int) TablaClientes.getValueAt(filaSeleccionada, 0);
+                String PrimerNombre = (String) TablaClientes.getValueAt(filaSeleccionada, 1);
+                String SegundoNombre = (String) TablaClientes.getValueAt(filaSeleccionada, 2);
+                String PrimerApellido = (String) TablaClientes.getValueAt(filaSeleccionada, 3);
+                String SegundoApellido = (String) TablaClientes.getValueAt(filaSeleccionada, 4);
+                String Celular = (String) TablaClientes.getValueAt(filaSeleccionada, 5);
+                String Direccion = (String) TablaClientes.getValueAt(filaSeleccionada, 6);
+                String Cedula = (String) TablaClientes.getValueAt(filaSeleccionada, 7);
+                
+                TextPrimerNombre.setText(PrimerNombre);
+                TextSegundoNombre.setText(SegundoNombre);
+                TextPrimerApellido.setText(PrimerApellido);
+                TextSegundoApellido.setText(SegundoApellido);
+                TextCelular.setText(Celular);
+                TextDireccion.setText(Direccion);
+                TextCedula.setText(Cedula);
+                
+                btnEliminar.setEnabled(false);
+                btnGuardar.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_tablaClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
