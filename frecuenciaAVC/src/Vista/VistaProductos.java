@@ -31,6 +31,18 @@ private Integer idCategoriaSeleccionada = null;
         cargarDatosTabla();
         cargarCategorias();
     }
+    
+    private void limpiar(){
+        TextNombreProducto.setText("");
+        TextDescripcionProducto.setText("");
+        TextPrecioUnitario.setText("");
+        TextStock.setText("");
+        TextImagen.setText("");
+        TextBuscar.setText("");
+        idProductoSeleccionado = null;
+        btnEliminar.setEnabled(true);
+        btnGuardar.setEnabled(true);
+    }
 
     private void cargarDatosTabla() {
         List<Producto> productos = productoControlador.obtenerTodosProductos();
@@ -182,8 +194,18 @@ private Integer idCategoriaSeleccionada = null;
         btnLimpiar.setText("Limpiar");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonGuardar(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonEliminar(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
 
@@ -275,7 +297,49 @@ private Integer idCategoriaSeleccionada = null;
 
     private void ComboCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCategoriasActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_ComboCategoriasActionPerformed
+
+    private void accionBotonGuardar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonGuardar
+        // TODO add your handling code here:
+        String nombreProducto = TextNombreProducto.getText();
+        String descripcionProducto = TextDescripcionProducto.getText();
+        int idCategoria = idCategoriaSeleccionada;
+        float precioUnitario = Float.parseFloat(TextPrecioUnitario.getText());
+        int stock = Integer.parseInt(TextPrecioUnitario.getText());
+        String imagen = TextImagen.getText();
+        
+        if(!nombreProducto.isEmpty()&&
+                !descripcionProducto.isEmpty()&&
+                precioUnitario >= 0 &&
+                stock >= 0){
+            try{
+                productoControlador.crearProducto(nombreProducto,
+                        descripcionProducto,
+                        idCategoria,
+                        precioUnitario,
+                        stock,
+                        imagen);
+                limpiar();
+                cargarDatosTabla();
+                cargarCategorias();
+            }catch(Exception e){
+                javax.swing.JOptionPane.showMessageDialog(this, "Error en los datos:"+ e.getMessage(),"Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_accionBotonGuardar
+
+    private void accionBotonEliminar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonEliminar
+        // TODO add your handling code here:
+        int filaSeleccionada = TablaProductos.getSelectedRow();
+        if(filaSeleccionada != -1){
+            int idProducto = (int) TablaProductos.getValueAt(filaSeleccionada, 0);
+            productoControlador.eliminarProducto(idProducto);
+            cargarDatosTabla();
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecciona una fila para eliminar.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionBotonEliminar
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
