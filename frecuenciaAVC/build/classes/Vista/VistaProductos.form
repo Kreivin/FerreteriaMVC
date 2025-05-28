@@ -165,6 +165,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TextBuscar">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textBuscarkeyTyped"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -187,6 +190,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaProductoMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -202,7 +208,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboCategoriasActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eventoComboCategorias"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -212,6 +218,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Limpiar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accionBotonLimpiar"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
@@ -233,6 +242,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Actualizar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accionBotonActualizar"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

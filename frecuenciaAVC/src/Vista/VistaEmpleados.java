@@ -173,6 +173,11 @@ btnGuardar.setEnabled(true);
         jScrollPane1.setViewportView(TablaEmpleados);
 
         ComboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Cagero" }));
+        ComboCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboCargoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -392,6 +397,10 @@ btnGuardar.setEnabled(true);
             }
         }
     }//GEN-LAST:event_textBuscarKeyTyped
+
+    private void ComboCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboCargoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

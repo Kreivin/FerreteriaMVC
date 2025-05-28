@@ -79,4 +79,13 @@ public class EmpleadoControlador {
             JOptionPane.showMessageDialog(null, "Error al eliminar el empleado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+      // Obtener un empleado por su ID
+    public Empleado obtenerEmpleadoPorId(int idEmpleado) {
+        try {
+            return empleadoDAO.obtenerEmpleadoPorId(idEmpleado);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el empleado: " + e.getMessage());
+            return null;
+        }
+    }
 }

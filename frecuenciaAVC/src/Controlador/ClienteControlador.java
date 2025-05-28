@@ -97,5 +97,13 @@ public class ClienteControlador {
         // Eliminar un cliente
         controlador.eliminarCliente(1);
     }
+    public Cliente obtenerClientePorId(int idCliente) {
+        try {
+            return clienteDAO.obtenerClientePorId(idCliente);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
 }   
     

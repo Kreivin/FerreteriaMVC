@@ -110,5 +110,31 @@ public class ClienteDAO {
             System.err.println("Error: " + e.getMessage());
         }
     }
+    
+    public Cliente obtenerClientePorId(int idCliente) throws SQLException {
+    String sql = "SELECT * FROM Clientes WHERE id_cliente = ?";
+    Cliente cliente = null;
+
+    try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+        stmt.setInt(1, idCliente);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("id_cliente"));
+                cliente.setPrimerNombre(rs.getString("primer_nombre"));
+                cliente.setSegundoNombre(rs.getString("segundo_nombre"));
+                cliente.setPrimerApellido(rs.getString("primer_apellido"));
+                cliente.setSegundoApellido(rs.getString("segundo_apellido"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setCedula(rs.getString("cedula"));
+            }
+        }
+    }
+
+    return cliente;
+}
 
 }
+
+

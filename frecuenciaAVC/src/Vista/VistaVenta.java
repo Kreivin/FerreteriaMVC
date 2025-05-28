@@ -28,7 +28,8 @@ import javax.swing.Timer;
  * @author kreiv
  */
 public class VistaVenta extends javax.swing.JPanel {
-
+    
+   
     /**
      * Creates new form VistaVenta
      */
