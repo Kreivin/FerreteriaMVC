@@ -9,6 +9,16 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import java.awt.FileDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kreiv
@@ -65,6 +75,7 @@ public class VistaCategorias extends javax.swing.JPanel {
         jTextBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaCategorias = new javax.swing.JTable();
+        ButtonGenerarReporte = new javax.swing.JButton();
 
         setLayout(null);
 
@@ -161,6 +172,15 @@ public class VistaCategorias extends javax.swing.JPanel {
 
         add(jScrollPane1);
         jScrollPane1.setBounds(20, 190, 760, 180);
+
+        ButtonGenerarReporte.setText("Generar Reporte");
+        ButtonGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionbotonGenerarReporte(evt);
+            }
+        });
+        add(ButtonGenerarReporte);
+        ButtonGenerarReporte.setBounds(625, 50, 130, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void TextNombreCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextNombreCategoriaActionPerformed
@@ -237,8 +257,69 @@ public class VistaCategorias extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_accionBotonActualzar
 
+    private void accionbotonGenerarReporte(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionbotonGenerarReporte
+        // TODO add your handling code here:
+        try{
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+        FileDialog dialogoArchivo = new FileDialog((java.awt.Frame)null, "Guardar Reporte PDF", FileDialog.SAVE);
+        dialogoArchivo.setFile("ReporteCategorias.pdf");
+        dialogoArchivo.setVisible(true);
+        
+        String ruta = dialogoArchivo.getDirectory();
+        String nombreArchivo = dialogoArchivo.getFile();
+        
+        if (ruta == null || nombreArchivo == null){
+            JOptionPane.showMessageDialog(this, "Operación cancelada.","Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String rutaCompleta = ruta + nombreArchivo;
+        
+        PdfWriter escritor = new PdfWriter(rutaCompleta);
+        PdfDocument Pdf = new PdfDocument(escritor);
+        Document documento = new Document(Pdf);
+        
+        documento.add(new Paragraph("Reporte de Categorias")
+        .setTextAlignment(TextAlignment.LEFT)
+        .setFontSize(20)
+        .setBold());
+        
+        documento.add(new Paragraph("Fecha:" + new java.util.Date().toString())
+        .setTextAlignment(TextAlignment.LEFT)
+        .setFontSize(12));
+        
+        Table tabla = new Table(3);
+        tabla.setWidth(UnitValue.createPercentValue(100));
+        tabla.addHeaderCell("ID Categoria").setBold();
+        tabla.addHeaderCell("Nombre").setBold();
+        tabla.addHeaderCell("Descripcion").setBold();
+        
+        List<Categoria> listaCategorias = 
+        categoriaControlador.obtenerTodasCategorias();
+        if(listaCategorias != null){
+            for (Categoria categoria : listaCategorias){
+                tabla.addCell(String.valueOf(categoria.getIdCategoria()));
+                tabla.addCell(categoria.getNombreCategoria());
+                tabla.addCell(categoria.getDescripcionCategoria());
+            }
+        }
+        documento.add(tabla);
+        documento.add(new Paragraph("Notas: Reporte generado automaticamente desde el sistema.")
+                .setFontSize(10)
+                .setMarginTop(20));
+        
+        documento.close();
+        
+        JOptionPane.showMessageDialog(this, "Reporte PDF generado con éxito en: " + rutaCompleta,
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_accionbotonGenerarReporte
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonGenerarReporte;
     private javax.swing.JTable TablaCategorias;
     private javax.swing.JTextField TextDescripcionCategoria;
     private javax.swing.JTextField TextNombreCategoria;

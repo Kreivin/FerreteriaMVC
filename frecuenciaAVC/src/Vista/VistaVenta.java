@@ -251,6 +251,11 @@ private void eventoComboProductos() {
         jLabel2.setText("Empleado");
 
         ComboEmpleados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboEmpleadosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Fecha");
 
@@ -896,6 +901,10 @@ private void eventoComboProductos() {
         JOptionPane.showMessageDialog(this, "Error al quitar el detalle: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }   
     }//GEN-LAST:event_accionBotonQuitarDetalle
+
+    private void ComboEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboEmpleadosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboEmpleadosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
