@@ -260,12 +260,7 @@ public class VistaCategorias extends javax.swing.JPanel {
     private void accionbotonGenerarReporte(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionbotonGenerarReporte
         // TODO add your handling code here:
         try{
-            
-        }catch(Exception e){
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-        }
-        FileDialog dialogoArchivo = new FileDialog((java.awt.Frame)null, "Guardar Reporte PDF", FileDialog.SAVE);
+            FileDialog dialogoArchivo = new FileDialog((java.awt.Frame)null, "Guardar Reporte PDF", FileDialog.SAVE);
         dialogoArchivo.setFile("ReporteCategorias.pdf");
         dialogoArchivo.setVisible(true);
         
@@ -283,12 +278,12 @@ public class VistaCategorias extends javax.swing.JPanel {
         Document documento = new Document(Pdf);
         
         documento.add(new Paragraph("Reporte de Categorias")
-        .setTextAlignment(TextAlignment.LEFT)
+        .setTextAlignment(TextAlignment.CENTER)
         .setFontSize(20)
         .setBold());
         
         documento.add(new Paragraph("Fecha:" + new java.util.Date().toString())
-        .setTextAlignment(TextAlignment.LEFT)
+        .setTextAlignment(TextAlignment.CENTER)
         .setFontSize(12));
         
         Table tabla = new Table(3);
@@ -315,6 +310,11 @@ public class VistaCategorias extends javax.swing.JPanel {
         
         JOptionPane.showMessageDialog(this, "Reporte PDF generado con éxito en: " + rutaCompleta,
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_accionbotonGenerarReporte
 
 
