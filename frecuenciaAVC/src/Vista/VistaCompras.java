@@ -21,6 +21,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import java.awt.FileDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kreiv
@@ -339,6 +349,7 @@ private void tablaComprasMouseClicked(java.awt.event.MouseEvent evt) {
         btnEliminar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        ButtonGenerarReportes = new javax.swing.JButton();
 
         jLabel1.setText("Empleado");
 
@@ -472,6 +483,13 @@ private void tablaComprasMouseClicked(java.awt.event.MouseEvent evt) {
             }
         });
 
+        ButtonGenerarReportes.setText("Generar Reportes");
+        ButtonGenerarReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonGenerarReportes(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -512,6 +530,8 @@ private void tablaComprasMouseClicked(java.awt.event.MouseEvent evt) {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ButtonGenerarReportes)
+                            .addGap(33, 33, 33)
                             .addComponent(btnQuitarDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
@@ -550,7 +570,8 @@ private void tablaComprasMouseClicked(java.awt.event.MouseEvent evt) {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(textBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnQuitarDetalle))
+                    .addComponent(btnQuitarDetalle)
+                    .addComponent(ButtonGenerarReportes))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -903,8 +924,14 @@ private void tablaComprasMouseClicked(java.awt.event.MouseEvent evt) {
         }
     }//GEN-LAST:event_accionBotonQuitarDetalle
 
+    private void accionBotonGenerarReportes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonGenerarReportes
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_accionBotonGenerarReportes
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonGenerarReportes;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;

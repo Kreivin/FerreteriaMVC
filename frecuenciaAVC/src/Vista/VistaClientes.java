@@ -8,6 +8,16 @@ import Modelo.Cliente;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import java.awt.FileDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kreiv
@@ -91,6 +101,7 @@ btnGuardar.setEnabled(true);
         btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaClientes = new javax.swing.JTable();
+        ButtonGenerarReportes = new javax.swing.JButton();
 
         jLabel1.setText("Primer Nombre");
 
@@ -170,6 +181,13 @@ btnGuardar.setEnabled(true);
         });
         jScrollPane1.setViewportView(TablaClientes);
 
+        ButtonGenerarReportes.setText("Generar reportes");
+        ButtonGenerarReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accionBotonGenerarReportes(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,6 +195,21 @@ btnGuardar.setEnabled(true);
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(TextBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar))
+                            .addComponent(jScrollPane1))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -203,6 +236,9 @@ btnGuardar.setEnabled(true);
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(ButtonGenerarReportes)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(TextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(TextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,22 +247,7 @@ btnGuardar.setEnabled(true);
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
-                                .addGap(21, 21, 21))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(TextBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLimpiar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar))
-                            .addComponent(jScrollPane1))
-                        .addContainerGap())))
+                                .addGap(21, 21, 21))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,7 +270,9 @@ btnGuardar.setEnabled(true);
                     .addComponent(TextCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                .addGap(40, 40, 40)
+                .addComponent(ButtonGenerarReportes)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -389,8 +412,78 @@ btnGuardar.setEnabled(true);
         }
     }//GEN-LAST:event_tablaClientesMouseClicked
 
+    private void accionBotonGenerarReportes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionBotonGenerarReportes
+        // TODO add your handling code here:
+         try{
+            FileDialog dialogoArchivo = new FileDialog((java.awt.Frame)null, "Guardar Reporte PDF", FileDialog.SAVE);
+        dialogoArchivo.setFile("ReporteClientes.pdf");
+        dialogoArchivo.setVisible(true);
+        
+        String ruta = dialogoArchivo.getDirectory();
+        String nombreArchivo = dialogoArchivo.getFile();
+        
+        if (ruta == null || nombreArchivo == null){
+            JOptionPane.showMessageDialog(this, "Operación cancelada.","Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        String rutaCompleta = ruta + nombreArchivo;
+        
+        PdfWriter escritor = new PdfWriter(rutaCompleta);
+        PdfDocument Pdf = new PdfDocument(escritor);
+        Document documento = new Document(Pdf);
+        
+        documento.add(new Paragraph("Reporte de Clientes")
+        .setTextAlignment(TextAlignment.CENTER)
+        .setFontSize(20)
+        .setBold());
+        
+        documento.add(new Paragraph("Fecha:" + new java.util.Date().toString())
+        .setTextAlignment(TextAlignment.CENTER)
+        .setFontSize(12));
+        
+        Table tabla = new Table(3);
+        tabla.setWidth(UnitValue.createPercentValue(100));
+        tabla.addHeaderCell("ID Cliente").setBold();
+        tabla.addHeaderCell("Primer Nombre").setBold();
+        tabla.addHeaderCell("Segundo Nombre").setBold();
+        tabla.addHeaderCell("Primer Apellido").setBold();
+        tabla.addHeaderCell("Segundo Apellido").setBold();
+        tabla.addHeaderCell("Celular").setBold();
+        tabla.addHeaderCell("Descripcion").setBold();
+        tabla.addHeaderCell("Cedula").setBold();
+        
+        List<Cliente> listaClientes = 
+        clienteControlador.obtenerTodosClientes();
+        if(listaClientes != null){
+            for (Cliente clientes : listaClientes){
+                tabla.addCell(String.valueOf(clientes.getIdCliente()));
+                tabla.addCell(clientes.getPrimerNombre());
+                tabla.addHeaderCell(clientes.getSegundoNombre());
+                tabla.addHeaderCell(clientes.getPrimerApellido());
+                tabla.addHeaderCell(clientes.getSegundoApellido());
+                tabla.addHeaderCell(clientes.getCelular());
+                tabla.addHeaderCell(clientes.getDireccion());
+                tabla.addHeaderCell(clientes.getCedula());
+            }
+        }
+        documento.add(tabla);
+        documento.add(new Paragraph("Notas: Reporte generado automaticamente desde el sistema.")
+                .setFontSize(10)
+                .setMarginTop(20));
+        
+        documento.close();
+        
+        JOptionPane.showMessageDialog(this, "Reporte PDF generado con éxito en: " + rutaCompleta,
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al generar el PDF: " + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_accionBotonGenerarReportes
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonGenerarReportes;
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTextField TextBuscar;
     private javax.swing.JTextField TextCedula;
