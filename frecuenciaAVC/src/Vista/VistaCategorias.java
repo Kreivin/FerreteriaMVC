@@ -253,7 +253,7 @@ public class VistaCategorias extends javax.swing.JPanel {
             btnEliminar.setEnabled(true);
             jButtonGuardar.setEnabled(true);
         }else{
-            javax.swing.JOptionPane.showMessageDialog(this, "por favor, llene tods los campos.","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "por favor, llene todos los campos.","Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_accionBotonActualzar
 
